@@ -9,3 +9,6 @@ export const getCurrentTheme = createSelector(getSettingsState,
 
 export const getFontSize = createSelector(getSettingsState,
   (state: SettingsState) => state.fontSize);
+
+export const getListica = createSelector(getSettingsState,
+    (state: SettingsState) => state.listica);

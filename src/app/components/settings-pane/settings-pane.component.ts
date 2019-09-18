@@ -6,6 +6,7 @@ import {RedoAction, UndoAction} from '../../undo-redo/undo-redo.actions';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {getRedoAction, getUndoAction} from '../../undo-redo/undo-redo.selectors';
+import { getListica } from '../../ngrx/settings/settings.selectors';
 
 @Component({
   selector: 'app-settings-pane',
@@ -16,6 +17,7 @@ export class SettingsPaneComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject();
   private undoItem;
   private redoItem;
+  private listica;
   constructor(private store: Store<AppState>) {
   }
 
@@ -26,6 +28,9 @@ export class SettingsPaneComponent implements OnInit, OnDestroy {
     this.store.pipe(select(getRedoAction), takeUntil(this.unsubscribe$)).subscribe(redoItem => {
       this.redoItem = redoItem;
     });
+    this.store.pipe(select(getListica), takeUntil(this.unsubscribe$)).subscribe(listica => {
+        this.listica = listica;
+      });
   }
 
   switchTheme() {
